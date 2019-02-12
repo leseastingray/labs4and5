@@ -11,7 +11,16 @@ namespace CustomerTests
     {
         static void Main(string[] args)
         {
+            // TestCustomerMembers()
+            TestCustomerConstructors();
+            TestCustomerPropertyGetters();
+            TestCustomerPropertySetters();
+            TestCustomerMethods();
 
+            // TestCustomerAll()
+
+            Console.WriteLine();
+            Console.ReadLine();
         }
     }
 }
