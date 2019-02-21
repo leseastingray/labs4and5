@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CardClasses;
 
 namespace Memory
 {
@@ -23,6 +24,9 @@ namespace Memory
         int firstCardNumber = NOT_PICKED_YET;
         int secondCardNumber = NOT_PICKED_YET;
         int matches = 0;
+
+        // Card class array
+        Card[] cards = new Card[21];
         #endregion
 
         #region Methods
@@ -30,52 +34,68 @@ namespace Memory
         // This method finds a picture box on the board based on it's number (1 - 20)
         // It takes an integer as it's parameter and returns the picture box controls
         // that's name contains that number
-        private PictureBox GetCard(int i)
+       private PictureBox GetCard(int i)
         {
             PictureBox card = (PictureBox)this.Controls["card" + i];
             return card;
         }
 
+        // Methods no longer needed with array set up
         // This method gets the filename for the image displayed in a picture box given it's number
         // It takes an integer as it's parameter and returns a string containing the 
         // filename for the image in the corresponding picture box
-        private string GetCardFilename(int i)
+/*        private string GetCardFilename(int i)
         {
             return GetCard(i).Tag.ToString();
         }
-
+*/
         // This method changes the filename for a given picture box
         // It takes an integer and a string that represents a filename as it's parameters
         // It doesn't return a value but stores the filename for the image to be displayed
         // in the picture box.  It doesn't actually display the new image
-        private void SetCardFilename(int i, string filename)
+/*        private void SetCardFilename(int i, string filename)
         {
             GetCard(i).Tag = filename;
         }
-
+*/
         // These 2 methods get the value (and suit) of the card in a given picturebox
         // Both methods take an integer as the parameter and return a string
-        private string GetCardValue(int index)
+/*        private string GetCardValue(int index)
         {
             return GetCardFilename(index).Substring(4, 1);
         }
-
-        private string GetCardSuit(int index)
+*/
+/*        private string GetCardSuit(int index)
         {
             return GetCardFilename(index).Substring(5, 1);
         }
-
-        // TODO:  students should write this one
+*/
+        // Rewritten IsMatch to refer to the array, using Card class property HasMatchingValue
         private bool IsMatch(int index1, int index2)
         {
-            if (GetCardValue(index1) == GetCardValue(index2))
+            if (cards[index1].HasMatchingValue(cards[index2]))
                 return true;
             else
                 return false;
         }
 
+        // Fill Card array
+        private void FillCards()
+        {
+            int counter = 1;
+
+            for (int suit = 1; suit <= 4; suit++)
+            {
+                for (int value = 1; value <= 5; value++)
+                {
+                    cards[counter] = new Card(value, suit);
+                    counter++;
+                }
+            }
+        }
+/*      No longer needed with rewritten Card array
         // This method fills each picture box with a filename
-        private void FillCardFilenames()
+       private void FillCardFilenames()
         {
             string[] values = { "a", "2", "j", "q", "k" };
             string[] suits = { "c", "d", "h", "s" };
@@ -90,9 +110,21 @@ namespace Memory
                 }
             }
         }
-
+*/
         // TODO:  students should write this one
-        private void ShuffleCards()
+
+         private void ShuffleCards()
+        {
+            Random generator = new Random();
+
+            for (int i = 1; i <= 20; i++)
+            {
+                int randomIndex = generator.Next(1, 21);
+                Card temp = cards[randomIndex];
+                cards[i] = temp;
+            }
+        }
+ /*       private void ShuffleCards()
         {
             Random generator = new Random();
             for (int i = 1; i <= 20; i++)
@@ -103,20 +135,26 @@ namespace Memory
                 SetCardFilename(i, temp);
             }
         }
-
+*/
         // This method loads (shows) an image in a picture box.  Assumes that filenames
         // have been filled in an earlier call to FillCardFilenames
         private void LoadCard(int i)
         {
             PictureBox card = GetCard(i);
-            card.Image = Image.FromFile(System.Environment.CurrentDirectory + "\\Cards\\" + GetCardFilename(i));
+            cards[i].Show(card);
+
+            // Rewritten above for the Card class object
+            // card.Image = Image.FromFile(System.Environment.CurrentDirectory + "\\Cards\\" + GetCardFilename(i));
         }
 
         // This method loads the image for the back of a card in a picture box
         private void LoadCardBack(int i)
         {
             PictureBox card = GetCard(i);
-            card.Image = Image.FromFile(System.Environment.CurrentDirectory + "\\Cards\\black_back.jpg");
+            cards[i].ShowBack(card);
+
+            // Rewritten above for the Card class object
+            // card.Image = Image.FromFile(System.Environment.CurrentDirectory + "\\Cards\\black_back.jpg");
         }
 
         // TODO:  students should write all of these
@@ -208,7 +246,10 @@ namespace Memory
              * Load all of the card backs
             */
 
-            FillCardFilenames();
+            // FillCardFilenames();
+
+            FillCards();
+
             ShuffleCards();
             LoadAllCardBacks();
         }
