@@ -22,11 +22,43 @@ namespace CustomerMaintenance
             InitializeComponent();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        // Create a Customer class variable initialized as null
+        public Customer customer = null;
+        
+        // Method displaying form as dialog box, returns Customer object
+        public Customer GetNewCustomer()
         {
-
+            this.ShowDialog();
+            return customer;
+        }
+        
+        // Validator method
+        private bool IsValidData()
+        {
+            return Validator.IsPresent(txtFirstName) &&
+                    Validator.IsPresent(txtLastName) &&
+                    Validator.IsPresent(txtEmail) &&
+                    Validator.IsValidEmail(txtEmail);
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // if IsValidData returns true
+            //   create new Customer from user textbox input
+            //   close the form
+            if (IsValidData())
+            {
+                customer = new Customer(txtFirstName.Text, txtLastName.Text, txtEmail.Text);
+                this.Close();
+            }
+        }
+
+        // Cancel button click event handler
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            // close the form
+            this.Close();
+        }
     
     }
 }
