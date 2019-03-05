@@ -15,7 +15,9 @@ namespace CustomerMaintenanceClasses
 		private const string dir = @"../../../Files/";
 		private const string path = dir + "Customers.txt";
 
-		public static void SaveCustomers(List<Customer> customers)
+        private const string Path = @"..\..\..\Customers.txt";
+
+        public static void SaveCustomers(List<Customer> customers)
 		{
 			// create the output stream for a text file that exists
 			StreamWriter textOut = 
@@ -43,7 +45,7 @@ namespace CustomerMaintenanceClasses
 			// create the object for the input stream for a text file
 			StreamReader textIn = 
 				new StreamReader(
-					new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read));
+					new FileStream(Path, FileMode.OpenOrCreate, FileAccess.Read));
 
 			// create the array list for customers
             List<Customer> customers = new List<Customer>();

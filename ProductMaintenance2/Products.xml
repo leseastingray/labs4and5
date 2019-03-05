@@ -20,4 +20,9 @@
         <Description>C# for Dummies</Description>
         <Price>1000.00</Price>
     </Product>
+    <Product>
+        <Code>fgbdf</Code>
+        <Description>Gibs</Description>
+        <Price>3.99</Price>
+    </Product>
 </Products>

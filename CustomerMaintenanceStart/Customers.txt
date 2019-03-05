@@ -1,0 +1,2 @@
+John|Smith|johnsmith@gmail.com
+Jane|Doe|janedoe@yahoo.com
