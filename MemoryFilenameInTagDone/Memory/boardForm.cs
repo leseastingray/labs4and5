@@ -112,7 +112,8 @@ namespace Memory
         }
 */
         // TODO:  students should write this one
-
+        
+        // 
          private void ShuffleCards()
         {
             Random generator = new Random();
@@ -120,8 +121,10 @@ namespace Memory
             for (int i = 1; i <= 20; i++)
             {
                 int randomIndex = generator.Next(1, 21);
-                Card temp = cards[randomIndex];
-                cards[i] = temp;
+                Card temp = cards[i];
+                cards[i] = cards[randomIndex];
+                cards[randomIndex] = temp;
+
             }
         }
  /*       private void ShuffleCards()

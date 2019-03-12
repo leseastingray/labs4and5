@@ -23,7 +23,7 @@ namespace CustomerMaintenance
         }
 
         // Create List of Customer objects and initialize at null
-        private List<Customer> customers = null;
+        private List<Customer> customers = new List<Customer>();
 
         // Method to fill the customers list box
         private void FillCustomerListBox()
