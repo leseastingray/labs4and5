@@ -22,7 +22,8 @@ namespace CustomerMaintenance
             InitializeComponent();
         }
 
-        // Create List of Customer objects and initialize at null
+        // Create List of Customer objects and initialize at null (null actually does not work, 
+        //      so just made a new list).
         private List<Customer> customers = new List<Customer>();
 
         // Method to fill the customers list box

@@ -17,13 +17,14 @@ namespace CustomerMaintenance
 
     public partial class frmAddCustomer : Form
     {
+
         public frmAddCustomer()
         {
             InitializeComponent();
         }
 
         // Create a Customer class variable initialized as null
-        public Customer customer = null;
+        private Customer customer = null;
         
         // Method displaying form as dialog box, returns Customer object
         public Customer GetNewCustomer()
